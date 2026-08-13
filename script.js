@@ -227,6 +227,8 @@ content.innerHTML=`
 
 <option value="1.5">1.5 Jam</option>
 
+<option value="3">3 Jam</option>
+
 <option value="3.5">3.5 Jam</option>
 
 <option value="4.5">4.5 Jam</option>
@@ -557,6 +559,7 @@ return;
 const faktor={
 "1":1.5,
 "1.5":2.5,
+"3":4.5,
 "3.5":5.5,
 "4.5":7.5
 };
