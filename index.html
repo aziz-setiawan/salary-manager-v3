@@ -34,6 +34,7 @@ button,input,select{font:inherit}button{cursor:pointer;border:0}
 .settings-row{display:flex;align-items:center;justify-content:space-between;gap:15px;padding:15px 0;border-bottom:1px solid var(--line)}.settings-row:last-child{border:0}.settings-row strong{font-size:13px}.settings-row p{font-size:12px;color:var(--muted);margin-top:4px}
 .bottom-nav{position:fixed;z-index:20;bottom:0;left:0;right:0;padding:10px 10px calc(10px + env(safe-area-inset-bottom));display:flex;justify-content:center;gap:5px;background:color-mix(in srgb,var(--surface) 91%,transparent);backdrop-filter:blur(18px);border-top:1px solid var(--line)}
 .nav-btn{flex:1;max-width:145px;display:flex;flex-direction:column;align-items:center;gap:4px;padding:8px 4px;border-radius:13px;background:transparent;color:var(--muted);font-size:10px;font-weight:700}.nav-btn .nav-ico{font-size:19px}.nav-btn.active{background:#edf1ff;color:var(--blue)}
+.app-footer{text-align:center;color:var(--muted);font-size:12px;padding:26px 8px 12px;margin-top:20px}.app-footer strong{color:var(--blue);font-weight:800}.app-footer .footer-sub{font-size:10px;margin-top:5px;opacity:.8}
 .toast{position:fixed;z-index:50;left:50%;bottom:100px;transform:translate(-50%,20px);opacity:0;pointer-events:none;background:#172033;color:#fff;padding:12px 17px;border-radius:13px;font-size:13px;box-shadow:var(--shadow);transition:.25s;max-width:90%;text-align:center}.toast.show{opacity:1;transform:translate(-50%,0)}
 body.dark{--bg:#0b1020;--surface:#141c2f;--text:#f0f4ff;--muted:#9ca8c0;--line:#26314a;--shadow:0 14px 35px #0003}
 body.dark .metric,body.dark .panel{border-color:#1b2740}body.dark .metric-icon,body.dark .nav-btn.active{background:#222e52}body.dark .quick,body.dark .field input,body.dark .field select,body.dark .list-tools input,body.dark .list-tools select,body.dark .report-mini,body.dark .tx-icon,body.dark .tx-card-actions button,body.dark .btn.secondary{background:#10182a;border-color:var(--line);color:var(--text)}body.dark .btn.danger{background:#391d2a}
@@ -109,6 +110,7 @@ body.dark .metric,body.dark .panel{border-color:#1b2740}body.dark .metric-icon,b
   <p class="subtext" style="margin-top:15px">Penyimpanan saat ini menggunakan browser perangkat (localStorage). Data tidak otomatis tersinkron ke perangkat lain. Backup secara berkala.</p>
  </div>
 </section>
+<footer class="app-footer">Dikembangkan oleh <strong>Aziz Setiawan</strong><div class="footer-sub">Salary Tracker Pro · Digital Finance</div></footer>
 </div>
 
 <nav class="bottom-nav">
