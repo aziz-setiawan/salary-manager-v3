@@ -1,88 +1,169 @@
 <!DOCTYPE html>
 <html lang="id">
-
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Salary Tracker Pro</title>
-<link rel="stylesheet" href="style.css">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#10172a">
+<title>Salary Tracker Pro — Digital Finance</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+:root{--bg:#f3f6fc;--surface:#fff;--text:#172033;--muted:#7b8498;--line:#e8edf5;--blue:#4567f5;--cyan:#20c6d7;--green:#17b890;--red:#ef5b75;--shadow:0 14px 38px rgba(31,48,91,.08)}
+*{box-sizing:border-box;margin:0;padding:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+body{background:var(--bg);color:var(--text);padding-bottom:100px;transition:.25s}
+button,input,select{font:inherit}button{cursor:pointer;border:0}
+.app{max-width:1180px;margin:auto;padding:18px}
+.topbar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:4px 0 22px}
+.brand{display:flex;align-items:center;gap:12px}.logo{width:48px;height:48px;display:grid;place-items:center;border-radius:16px;color:white;font-size:24px;background:linear-gradient(135deg,var(--blue),var(--cyan));box-shadow:0 8px 20px #4567f544}
+.brand h1{font-size:clamp(18px,3vw,25px);letter-spacing:-.7px}.brand p{font-size:12px;color:var(--muted);margin-top:3px}
+.top-actions{display:flex;gap:8px}.icon-btn{background:var(--surface);color:var(--text);border:1px solid var(--line);border-radius:13px;width:43px;height:43px;font-size:18px;box-shadow:var(--shadow)}
+.hero{position:relative;overflow:hidden;border-radius:28px;padding:25px;background:linear-gradient(115deg,#253fce 0%,#4969f6 48%,#1bb8d0 100%);color:#fff;box-shadow:0 18px 42px #3858dc2b}
+.hero:before,.hero:after{content:"";position:absolute;border:1px solid #ffffff26;border-radius:50%;width:250px;height:250px;right:-55px;top:-115px}.hero:after{width:310px;height:310px;right:-88px;top:-145px}
+.hero-top{display:flex;align-items:flex-start;justify-content:space-between;gap:15px;position:relative;z-index:1}.eyebrow{font-size:12px;letter-spacing:1.4px;text-transform:uppercase;opacity:.8;font-weight:700}.hero h2{font-size:clamp(28px,5vw,43px);letter-spacing:-1.4px;margin:8px 0}.hero p{font-size:13px;opacity:.83}.hero-pill{padding:8px 11px;border:1px solid #ffffff40;background:#ffffff18;border-radius:99px;font-size:12px;white-space:nowrap}
+.hero-bottom{display:flex;gap:25px;flex-wrap:wrap;margin-top:25px;position:relative;z-index:1}.hero-stat{border-left:1px solid #ffffff45;padding-left:13px}.hero-stat small{display:block;font-size:12px;opacity:.8;margin-bottom:5px}.hero-stat strong{font-size:15px}
+.section-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:27px 2px 13px}.section-head h3{font-size:17px;letter-spacing:-.3px}.section-head p{font-size:12px;color:var(--muted);margin-top:3px}
+.metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:13px;margin-top:15px}.metric{background:var(--surface);border:1px solid #ffffff;border-radius:21px;padding:17px;box-shadow:var(--shadow);min-width:0}.metric-head{display:flex;justify-content:space-between;align-items:center;gap:8px;color:var(--muted);font-size:12px;font-weight:650}.metric-icon{width:35px;height:35px;display:grid;place-items:center;border-radius:12px;background:#eef2ff;font-size:17px}.metric strong{display:block;font-size:clamp(15px,2vw,21px);letter-spacing:-.5px;margin-top:14px;overflow-wrap:anywhere}.metric small{display:block;color:var(--muted);font-size:11px;margin-top:6px}
+.content-grid{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(280px,.85fr);gap:15px;margin-top:15px}.panel{background:var(--surface);border:1px solid #ffffff;border-radius:22px;padding:20px;box-shadow:var(--shadow);min-width:0}.panel h3{font-size:15px;letter-spacing:-.2px}.subtext{font-size:12px;color:var(--muted);margin-top:5px}.chart-wrap{height:230px;margin-top:20px;position:relative}.target-row{display:flex;justify-content:space-between;gap:10px;margin-top:20px;font-size:12px;color:var(--muted)}.progress{height:9px;border-radius:20px;background:var(--line);overflow:hidden;margin-top:10px}.progress>div{height:100%;border-radius:20px;background:linear-gradient(90deg,var(--blue),var(--cyan));width:0;transition:width .4s}
+.quick-actions{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:18px}.quick{display:flex;align-items:center;gap:10px;text-align:left;background:var(--bg);color:var(--text);padding:13px;border-radius:15px;border:1px solid var(--line);font-size:12px;font-weight:700}.quick span:first-child{font-size:20px}
+.transaction-list{margin-top:13px;display:grid;gap:9px}.tx{display:flex;align-items:center;gap:11px;padding:12px 0;border-bottom:1px solid var(--line)}.tx:last-child{border:0}.tx-icon{width:40px;height:40px;border-radius:14px;display:grid;place-items:center;background:var(--bg);font-size:18px;flex-shrink:0}.tx-main{flex:1;min-width:0}.tx-main strong{display:block;font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.tx-main small{display:block;color:var(--muted);font-size:11px;margin-top:4px}.tx-amount{font-size:12px;font-weight:800;white-space:nowrap}.positive{color:var(--green)}.negative{color:var(--red)}
+.page{display:none;margin-top:23px}.page.active{display:block}.page-title{margin:0 2px 15px}.page-title h2{font-size:24px;letter-spacing:-.8px}.page-title p{color:var(--muted);font-size:13px;margin-top:5px}
+.form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}.field label{display:block;font-size:12px;font-weight:700;margin-bottom:7px;color:var(--muted)}.field input,.field select{width:100%;padding:13px 14px;background:var(--bg);border:1px solid var(--line);border-radius:13px;color:var(--text);outline:none}.field input:focus,.field select:focus{border-color:var(--blue);box-shadow:0 0 0 3px #4567f51c}.span-2{grid-column:1/-1}
+.btn{padding:12px 16px;border-radius:13px;background:linear-gradient(115deg,var(--blue),#6680ff);color:#fff;font-weight:750;font-size:13px;box-shadow:0 7px 17px #4567f52a}.btn.secondary{background:var(--bg);color:var(--text);box-shadow:none;border:1px solid var(--line)}.btn.danger{background:#fff0f2;color:var(--red);box-shadow:none}.btn-row{display:flex;gap:9px;flex-wrap:wrap;margin-top:14px}.btn-row .btn{flex:1}
+.list-tools{display:flex;gap:10px;margin:16px 0}.list-tools input,.list-tools select{min-width:0;flex:1;padding:12px;border-radius:12px;border:1px solid var(--line);background:var(--surface);color:var(--text)}
+.tx-card{border:1px solid var(--line);border-radius:16px;padding:14px;margin-top:10px}.tx-card-top{display:flex;justify-content:space-between;gap:10px}.tx-card h4{font-size:14px}.tx-card p{font-size:12px;color:var(--muted);margin-top:5px;overflow-wrap:anywhere}.tx-card-actions{display:flex;gap:7px;margin-top:12px}.tx-card-actions button{padding:8px 10px;border-radius:9px;background:var(--bg);color:var(--text);font-size:12px}.empty{text-align:center;padding:28px 10px;color:var(--muted);font-size:13px}
+.report-summary{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:15px}.report-mini{padding:14px;background:var(--bg);border-radius:14px}.report-mini small{display:block;color:var(--muted);font-size:11px}.report-mini strong{display:block;font-size:14px;margin-top:7px;overflow-wrap:anywhere}
+.settings-row{display:flex;align-items:center;justify-content:space-between;gap:15px;padding:15px 0;border-bottom:1px solid var(--line)}.settings-row:last-child{border:0}.settings-row strong{font-size:13px}.settings-row p{font-size:12px;color:var(--muted);margin-top:4px}
+.bottom-nav{position:fixed;z-index:20;bottom:0;left:0;right:0;padding:10px 10px calc(10px + env(safe-area-inset-bottom));display:flex;justify-content:center;gap:5px;background:color-mix(in srgb,var(--surface) 91%,transparent);backdrop-filter:blur(18px);border-top:1px solid var(--line)}
+.nav-btn{flex:1;max-width:145px;display:flex;flex-direction:column;align-items:center;gap:4px;padding:8px 4px;border-radius:13px;background:transparent;color:var(--muted);font-size:10px;font-weight:700}.nav-btn .nav-ico{font-size:19px}.nav-btn.active{background:#edf1ff;color:var(--blue)}
+.toast{position:fixed;z-index:50;left:50%;bottom:100px;transform:translate(-50%,20px);opacity:0;pointer-events:none;background:#172033;color:#fff;padding:12px 17px;border-radius:13px;font-size:13px;box-shadow:var(--shadow);transition:.25s;max-width:90%;text-align:center}.toast.show{opacity:1;transform:translate(-50%,0)}
+body.dark{--bg:#0b1020;--surface:#141c2f;--text:#f0f4ff;--muted:#9ca8c0;--line:#26314a;--shadow:0 14px 35px #0003}
+body.dark .metric,body.dark .panel{border-color:#1b2740}body.dark .metric-icon,body.dark .nav-btn.active{background:#222e52}body.dark .quick,body.dark .field input,body.dark .field select,body.dark .list-tools input,body.dark .list-tools select,body.dark .report-mini,body.dark .tx-icon,body.dark .tx-card-actions button,body.dark .btn.secondary{background:#10182a;border-color:var(--line);color:var(--text)}body.dark .btn.danger{background:#391d2a}
+@media(max-width:850px){.metrics{grid-template-columns:repeat(2,minmax(0,1fr))}.content-grid{grid-template-columns:1fr}.app{padding:13px}.hero{border-radius:23px;padding:22px}.panel{padding:17px}}
+@media(max-width:430px){.brand p{font-size:11px}.logo{width:42px;height:42px}.hero-bottom{gap:15px}.hero-stat strong{font-size:13px}.metric{padding:14px;border-radius:18px}.metric-icon{width:31px;height:31px}.form-grid{grid-template-columns:1fr}.span-2{grid-column:auto}.report-summary{grid-template-columns:1fr}.bottom-nav{gap:0;padding-left:4px;padding-right:4px}.nav-btn{font-size:9px}.nav-btn .nav-ico{font-size:18px}.list-tools{flex-direction:column}}
+</style>
 </head>
-
 <body>
-
-<header class="header">
-<h1>💰 Salary Tracker Pro</h1>
-<p id="today"></p>
+<div class="app">
+<header class="topbar">
+  <div class="brand"><div class="logo">₿</div><div><h1>Salary Tracker <span style="color:var(--blue)">Pro</span></h1><p id="today">Keuangan lebih teratur, hidup lebih tenang.</p></div></div>
+  <div class="top-actions"><button class="icon-btn" onclick="toggleDark()" title="Tema">◐</button><button class="icon-btn" onclick="showPage('settings')" title="Pengaturan">⚙</button></div>
 </header>
 
-<div class="dashboard">
+<section class="hero">
+ <div class="hero-top"><div><div class="eyebrow">Total kekayaan tercatat</div><h2 id="heroSaldo">Rp 0</h2><p>Saldo bersih dari gaji, lembur, dan pengeluaran</p></div><div class="hero-pill">● Keuangan pribadi</div></div>
+ <div class="hero-bottom"><div class="hero-stat"><small>Target tabungan</small><strong id="heroTarget">Rp 0</strong></div><div class="hero-stat"><small>Progress target</small><strong id="heroProgress">0%</strong></div><div class="hero-stat"><small>Transaksi</small><strong id="heroCount">0 transaksi</strong></div></div>
+</section>
 
-<div class="card saldo">
-<h3>Saldo Saat Ini</h3>
-<h2 id="saldo">Rp 0</h2>
+<section class="metrics">
+ <div class="metric"><div class="metric-head"><span>💰 Pemasukan gaji</span><span class="metric-icon">↗</span></div><strong id="totalGaji">Rp 0</strong><small>Total gaji tercatat</small></div>
+ <div class="metric"><div class="metric-head"><span>⏱️ Pendapatan lembur</span><span class="metric-icon">◷</span></div><strong id="totalLembur">Rp 0</strong><small>Total lembur tercatat</small></div>
+ <div class="metric"><div class="metric-head"><span>💸 Pengeluaran</span><span class="metric-icon">↘</span></div><strong id="totalKeluar">Rp 0</strong><small>Total uang keluar</small></div>
+ <div class="metric"><div class="metric-head"><span>🎯 Target</span><span class="metric-icon">◎</span></div><strong id="target">Rp 0</strong><small id="targetHint">Atur target tabungan</small></div>
+</section>
+
+<section id="home" class="page active">
+ <div class="content-grid">
+  <div class="panel"><div class="section-head" style="margin:0"><div><h3>Arus keuangan</h3><p class="subtext">Ringkasan gaji, lembur, dan pengeluaran</p></div><span class="hero-pill" style="color:var(--blue);border-color:var(--line);background:var(--bg)">Ringkasan</span></div><div class="chart-wrap"><canvas id="cashChart"></canvas></div></div>
+  <div class="panel"><h3>Target tabungan</h3><p class="subtext">Pantau kemajuan menuju targetmu</p><div style="margin-top:22px;display:flex;align-items:end;justify-content:space-between;gap:12px"><div><div id="targetBig" style="font-size:26px;font-weight:850;letter-spacing:-1px">0%</div><div class="subtext">Target tercapai</div></div><div id="targetRemaining" style="text-align:right;font-size:12px;color:var(--muted)">Atur target dahulu</div></div><div class="progress"><div id="targetBar"></div></div><div class="quick-actions"><button class="quick" onclick="showPage('gaji')"><span>💰</span><span>Tambah gaji</span></button><button class="quick" onclick="showPage('lembur')"><span>⏱️</span><span>Input lembur</span></button><button class="quick" onclick="showPage('keluar')"><span>🛍️</span><span>Catat pengeluaran</span></button><button class="quick" onclick="showPage('laporan')"><span>📊</span><span>Lihat laporan</span></button></div></div>
+ </div>
+ <div class="panel" style="margin-top:15px"><div class="section-head" style="margin:0"><div><h3>Aktivitas terbaru</h3><p class="subtext">Transaksi terakhir yang kamu catat</p></div><button class="btn secondary" onclick="showPage('riwayat')">Lihat semua</button></div><div id="recentList" class="transaction-list"></div></div>
+</section>
+
+<section id="gaji" class="page">
+ <div class="page-title"><h2>💰 Catat gaji</h2><p>Kelola pemasukan gaji bulanan atau pemasukan lainnya.</p></div>
+ <div class="panel"><form id="gajiForm" onsubmit="saveGaji(event)"><div class="form-grid"><div class="field"><label>Tanggal</label><input type="date" id="gajiTanggal" required></div><div class="field"><label>Nominal (Rp)</label><input type="number" id="gajiNominal" min="1" placeholder="Contoh: 6150000" required></div><div class="field span-2"><label>Keterangan</label><input id="gajiKet" placeholder="Contoh: Gaji bulan Oktober"></div></div><div class="btn-row"><button class="btn" id="gajiSubmit">＋ Simpan gaji</button><button type="button" class="btn secondary" onclick="cancelEdit('gaji')">Bersihkan</button></div></form></div>
+ <div class="panel" style="margin-top:15px"><h3>Daftar gaji</h3><div id="gajiList"></div></div>
+</section>
+
+<section id="lembur" class="page">
+ <div class="page-title"><h2>⏱️ Catat lembur</h2><p>Hitung otomatis berdasarkan jam hidup dan tarif lembur.</p></div>
+ <div class="panel"><form id="lemburForm" onsubmit="saveLembur(event)"><div class="form-grid"><div class="field"><label>Tanggal lembur</label><input type="date" id="lemburTanggal" required></div><div class="field"><label>Jam hidup</label><select id="lemburJam"><option value="1">1 jam → 1,5 jam bayar</option><option value="1.5">1,5 jam → 2,5 jam bayar</option><option value="3.5">3,5 jam → 5,5 jam bayar</option><option value="4.5">4,5 jam → 7,5 jam bayar</option></select></div><div class="field"><label>Tarif per jam (Rp)</label><input type="number" id="tarifLembur" min="1" value="44000" required></div><div class="field"><label>Faktor bayar</label><input id="faktorPreview" value="1,5 × tarif" readonly></div><div class="field span-2"><label>Keterangan (opsional)</label><input id="lemburKet" placeholder="Contoh: Lembur hari Minggu"></div></div><div class="btn-row"><button class="btn" id="lemburSubmit">＋ Simpan lembur</button><button type="button" class="btn secondary" onclick="cancelEdit('lembur')">Bersihkan</button></div><p class="subtext" id="lemburPreview" style="margin-top:12px">Estimasi nominal: Rp 66.000</p></form></div>
+ <div class="panel" style="margin-top:15px"><h3>Riwayat lembur</h3><div id="lemburList"></div></div>
+</section>
+
+<section id="keluar" class="page">
+ <div class="page-title"><h2>💸 Catat pengeluaran</h2><p>Catat pengeluaran supaya arus uang lebih terkontrol.</p></div>
+ <div class="panel"><form id="keluarForm" onsubmit="saveKeluar(event)"><div class="form-grid"><div class="field"><label>Tanggal</label><input type="date" id="keluarTanggal" required></div><div class="field"><label>Kategori</label><select id="keluarKategori"><option>Makan</option><option>Transport</option><option>BBM</option><option>Belanja</option><option>Tagihan</option><option>Kesehatan</option><option>Hiburan</option><option>Lainnya</option></select></div><div class="field"><label>Nominal (Rp)</label><input type="number" id="keluarNominal" min="1" placeholder="Contoh: 25000" required></div><div class="field"><label>Keterangan</label><input id="keluarKet" placeholder="Contoh: Makan siang"></div></div><div class="btn-row"><button class="btn" id="keluarSubmit">＋ Simpan pengeluaran</button><button type="button" class="btn secondary" onclick="cancelEdit('keluar')">Bersihkan</button></div></form></div>
+ <div class="panel" style="margin-top:15px"><h3>Riwayat pengeluaran</h3><div id="keluarList"></div></div>
+</section>
+
+<section id="riwayat" class="page">
+ <div class="page-title"><h2>🧾 Semua transaksi</h2><p>Cari, edit, atau hapus catatan keuangan.</p></div><div class="panel"><div class="list-tools"><input id="searchAll" placeholder="Cari keterangan atau kategori..." oninput="renderHistory()"><select id="filterType" onchange="renderHistory()"><option value="all">Semua transaksi</option><option value="gaji">Gaji</option><option value="lembur">Lembur</option><option value="pengeluaran">Pengeluaran</option></select></div><div id="allList"></div></div>
+</section>
+
+<section id="laporan" class="page">
+ <div class="page-title"><h2>📊 Laporan keuangan</h2><p>Pilih periode untuk melihat ringkasan pemasukan dan pengeluaran.</p></div>
+ <div class="panel"><div class="form-grid"><div class="field"><label>Dari tanggal</label><input type="date" id="tanggalAwal"></div><div class="field"><label>Sampai tanggal</label><input type="date" id="tanggalAkhir"></div></div><div class="btn-row"><button class="btn" onclick="buatLaporan()">Tampilkan laporan</button><button class="btn secondary" onclick="exportCSV()">Ekspor CSV</button><button class="btn secondary" onclick="window.print()">Cetak / PDF</button></div><div id="hasilLaporan"><div class="empty">Pilih rentang tanggal, lalu tekan “Tampilkan laporan”.</div></div></div>
+ <div class="content-grid"><div class="panel"><h3>Pengeluaran per kategori</h3><div class="chart-wrap"><canvas id="categoryChart"></canvas></div></div><div class="panel"><h3>Catatan laporan</h3><p class="subtext">Laporan dihitung berdasarkan tanggal transaksi yang dipilih. Pastikan tanggal dan nominal sudah benar.</p><div id="reportNote" class="subtext" style="margin-top:15px">Belum ada laporan yang dibuat.</div></div></div>
+</section>
+
+<section id="settings" class="page">
+ <div class="page-title"><h2>⚙️ Pengaturan</h2><p>Personalisasi aplikasi dan amankan salinan data.</p></div>
+ <div class="panel">
+  <div class="settings-row"><div><strong>🎯 Target tabungan</strong><p>Atur nominal tujuan tabunganmu.</p></div><button class="btn secondary" onclick="setTarget()">Atur target</button></div>
+  <div class="settings-row"><div><strong>🌗 Tampilan</strong><p>Ganti antara mode terang dan gelap.</p></div><button class="btn secondary" onclick="toggleDark()">Ganti tema</button></div>
+  <div class="settings-row"><div><strong>💾 Backup data</strong><p>Unduh data sebagai file JSON.</p></div><button class="btn secondary" onclick="backupData()">Unduh backup</button></div>
+  <div class="settings-row"><div><strong>📥 Pulihkan backup</strong><p>Impor file backup Salary Tracker Pro.</p></div><label class="btn secondary" for="restoreFile">Pilih file</label><input id="restoreFile" type="file" accept="application/json,.json" style="display:none" onchange="restoreData(event)"></div>
+  <div class="settings-row"><div><strong>🧹 Reset data lokal</strong><p>Hapus catatan dari perangkat ini. Tindakan ini tidak bisa dibatalkan.</p></div><button class="btn danger" onclick="resetData()">Reset</button></div>
+  <div class="settings-row"><div><strong>ℹ️ Tentang aplikasi</strong><p>Salary Tracker Pro · Digital Finance</p></div><span style="font-size:12px;color:var(--muted)">V6.0</span></div>
+  <p class="subtext" style="margin-top:15px">Penyimpanan saat ini menggunakan browser perangkat (localStorage). Data tidak otomatis tersinkron ke perangkat lain. Backup secara berkala.</p>
+ </div>
+</section>
 </div>
 
-<div class="grid">
-
-<div class="card">
-<h4>💰 Gaji</h4>
-<p id="totalGaji">Rp 0</p>
-</div>
-
-<div class="card">
-<h4>🕒 Lembur</h4>
-<p id="totalLembur">Rp 0</p>
-</div>
-
-<div class="card">
-<h4>💸 Pengeluaran</h4>
-<p id="totalKeluar">Rp 0</p>
-</div>
-
-<div class="card">
-<h4>🎯 Target</h4>
-<p id="target">Rp 0</p>
-</div>
-
-</div>
-
-</div>
-
-<main id="content"></main>
-
-<nav class="bottomNav">
-
-<button onclick="showPage('home')">
-🏠<br>Home
-</button>
-
-<button onclick="showPage('gaji')">
-💰<br>Gaji
-</button>
-
-<button onclick="showPage('lembur')">
-🕒<br>Lembur
-</button>
-
-<button onclick="showPage('keluar')">
-💸<br>Keluar
-</button>
-
-<button onclick="showPage('laporan')">
-📊<br>Laporan
-</button>
-
-<button onclick="showPage('setting')">
-⚙️<br>Setting
-</button>
-
+<nav class="bottom-nav">
+ <button class="nav-btn active" data-page="home" onclick="showPage('home')"><span class="nav-ico">⌂</span>Beranda</button>
+ <button class="nav-btn" data-page="gaji" onclick="showPage('gaji')"><span class="nav-ico">＋</span>Gaji</button>
+ <button class="nav-btn" data-page="lembur" onclick="showPage('lembur')"><span class="nav-ico">◷</span>Lembur</button>
+ <button class="nav-btn" data-page="keluar" onclick="showPage('keluar')"><span class="nav-ico">↘</span>Keluar</button>
+ <button class="nav-btn" data-page="riwayat" onclick="showPage('riwayat')"><span class="nav-ico">▤</span>Riwayat</button>
+ <button class="nav-btn" data-page="laporan" onclick="showPage('laporan')"><span class="nav-ico">▥</span>Laporan</button>
 </nav>
+<div class="toast" id="toast"></div>
 
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-
-<script src="script.js"></script>
-  
+<script>
+"use strict";
+const STORAGE_KEY="salaryTracker";
+let db=loadDB(), editIds={gaji:null,lembur:null,keluar:null}, cashChart=null, categoryChart=null;
+function loadDB(){try{const d=JSON.parse(localStorage.getItem(STORAGE_KEY)||"{}");return {gaji:Array.isArray(d.gaji)?d.gaji:[],lembur:Array.isArray(d.lembur)?d.lembur:[],pengeluaran:Array.isArray(d.pengeluaran)?d.pengeluaran:[],target:Number(d.target)||0};}catch(e){return {gaji:[],lembur:[],pengeluaran:[],target:0};}}
+function saveDB(){localStorage.setItem(STORAGE_KEY,JSON.stringify(db));}
+function money(n){return "Rp "+Math.round(Number(n)||0).toLocaleString("id-ID");}
+function sum(a){return a.reduce((t,x)=>t+Number(x.nominal||0),0);}
+function saldo(){return sum(db.gaji)+sum(db.lembur)-sum(db.pengeluaran);}
+function dateToday(){const d=new Date();return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`;}
+function safe(v){return String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));}
+function showToast(s){const el=document.getElementById("toast");el.textContent=s;el.classList.add("show");setTimeout(()=>el.classList.remove("show"),2400);}
+function allTx(){return [...db.gaji.map(x=>({...x,jenis:"gaji",title:"Gaji",amount:Number(x.nominal)})),...db.lembur.map(x=>({...x,jenis:"lembur",title:"Lembur",amount:Number(x.nominal)})),...db.pengeluaran.map(x=>({...x,jenis:"pengeluaran",title:x.kategori||"Pengeluaran",amount:-Number(x.nominal)}))].sort((a,b)=>(b.tanggal||"").localeCompare(a.tanggal||""));}
+function showPage(p){document.querySelectorAll(".page").forEach(x=>x.classList.toggle("active",x.id===p));document.querySelectorAll(".nav-btn").forEach(x=>x.classList.toggle("active",x.dataset.page===p));if(p==="riwayat")renderHistory();if(p==="laporan")renderCategoryChart();window.scrollTo({top:0,behavior:"smooth"});}
+function refresh(){const g=sum(db.gaji),l=sum(db.lembur),k=sum(db.pengeluaran),s=saldo(),pct=db.target>0?Math.max(0,s/db.target*100):0;document.getElementById("today").textContent=new Date().toLocaleDateString("id-ID",{weekday:"long",day:"numeric",month:"long",year:"numeric"});document.getElementById("heroSaldo").textContent=money(s);document.getElementById("heroTarget").textContent=money(db.target);document.getElementById("heroProgress").textContent=Math.min(pct,100).toFixed(1)+"%";document.getElementById("heroCount").textContent=allTx().length+" transaksi";document.getElementById("totalGaji").textContent=money(g);document.getElementById("totalLembur").textContent=money(l);document.getElementById("totalKeluar").textContent=money(k);document.getElementById("target").textContent=money(db.target);document.getElementById("targetHint").textContent=db.target?Math.min(pct,100).toFixed(1)+"% target tercapai":"Atur target tabungan";document.getElementById("targetBig").textContent=Math.min(pct,100).toFixed(1)+"%";document.getElementById("targetBar").style.width=Math.min(pct,100)+"%";document.getElementById("targetRemaining").textContent=db.target?money(Math.max(db.target-s,0))+" lagi":"Atur target dahulu";renderRecent();renderLists();renderCashChart();}
+function renderRecent(){const list=allTx().slice(0,5),el=document.getElementById("recentList");if(!list.length){el.innerHTML='<div class="empty">Belum ada transaksi. Tambahkan gaji atau lembur pertamamu.</div>';return;}el.innerHTML=list.map(x=>`<div class="tx"><div class="tx-icon">${x.jenis==="gaji"?"💰":x.jenis==="lembur"?"⏱️":"💸"}</div><div class="tx-main"><strong>${safe(x.title)}</strong><small>${safe(x.tanggal)}${x.ket?" · "+safe(x.ket):""}</small></div><div class="tx-amount ${x.amount<0?"negative":"positive"}">${x.amount<0?"−":"+"}${money(Math.abs(x.amount))}</div></div>`).join("");}
+function renderLists(){renderTypeList("gaji","gajiList");renderTypeList("lembur","lemburList");renderTypeList("pengeluaran","keluarList");}
+function renderTypeList(type,id){const el=document.getElementById(id);if(!el)return;const arr=db[type];if(!arr.length){el.innerHTML='<div class="empty">Belum ada data.</div>';return;}el.innerHTML=arr.slice().sort((a,b)=>(b.tanggal||"").localeCompare(a.tanggal||"")).map(x=>{const title=type==="gaji"?"Gaji":type==="lembur"?"Lembur":(x.kategori||"Pengeluaran");const desc=type==="lembur"?`${x.jam} jam hidup · faktor ${factor(x.jam)} · ${safe(x.ket||"")}`:safe(x.ket||"Tanpa keterangan");return `<div class="tx-card"><div class="tx-card-top"><div><h4>${type==="pengeluaran"?"💸":type==="lembur"?"⏱️":"💰"} ${title}</h4><p>${safe(x.tanggal)} · ${desc}</p></div><strong class="${type==="pengeluaran"?"negative":"positive"}">${money(x.nominal)}</strong></div><div class="tx-card-actions"><button onclick="editItem('${type}',${Number(x.id)})">✏️ Edit</button><button onclick="deleteItem('${type}',${Number(x.id)})">🗑 Hapus</button></div></div>`;}).join("");}
+function renderHistory(){const el=document.getElementById("allList");if(!el)return;const q=(document.getElementById("searchAll")?.value||"").toLowerCase(),f=document.getElementById("filterType")?.value||"all";const arr=allTx().filter(x=>(f==="all"||x.jenis===f)&&[x.title,x.ket,x.tanggal,x.kategori].join(" ").toLowerCase().includes(q));if(!arr.length){el.innerHTML='<div class="empty">Tidak ada transaksi yang cocok.</div>';return;}el.innerHTML=arr.map(x=>`<div class="tx-card"><div class="tx-card-top"><div><h4>${x.jenis==="gaji"?"💰":x.jenis==="lembur"?"⏱️":"💸"} ${safe(x.title)}</h4><p>${safe(x.tanggal)}${x.ket?" · "+safe(x.ket):""}</p></div><strong class="${x.amount<0?"negative":"positive"}">${x.amount<0?"−":"+"}${money(Math.abs(x.amount))}</strong></div><div class="tx-card-actions"><button onclick="editItem('${x.jenis}',${Number(x.id)})">✏️ Edit</button><button onclick="deleteItem('${x.jenis}',${Number(x.id)})">🗑 Hapus</button></div></div>`).join("");}
+function saveGaji(e){e.preventDefault();const x={id:editIds.gaji??Date.now(),tanggal:val("gajiTanggal"),nominal:Number(val("gajiNominal")),ket:val("gajiKet").trim()};if(!x.tanggal||x.nominal<=0)return showToast("Isi tanggal dan nominal gaji dengan benar.");upsert("gaji",x);cancelEdit("gaji",false);refresh();showToast("Data gaji tersimpan.");}
+function factor(jam){return ({"1":1.5,"1.5":2.5,"3.5":5.5,"4.5":7.5})[String(jam)]||0;}
+function updateLemburPreview(){const jam=val("lemburJam"),tarif=Number(val("tarifLembur"))||0;document.getElementById("faktorPreview").value=factor(jam).toLocaleString("id-ID")+" × tarif";document.getElementById("lemburPreview").textContent="Estimasi nominal: "+money(factor(jam)*tarif);}
+function saveLembur(e){e.preventDefault();const jam=val("lemburJam"),x={id:editIds.lembur??Date.now(),tanggal:val("lemburTanggal"),jam,tarif:Number(val("tarifLembur")),nominal:factor(jam)*Number(val("tarifLembur")),ket:val("lemburKet").trim()};if(!x.tanggal||x.nominal<=0)return showToast("Isi tanggal dan tarif lembur.");upsert("lembur",x);cancelEdit("lembur",false);refresh();showToast("Data lembur tersimpan.");}
+function saveKeluar(e){e.preventDefault();const x={id:editIds.keluar??Date.now(),tanggal:val("keluarTanggal"),kategori:val("keluarKategori"),nominal:Number(val("keluarNominal")),ket:val("keluarKet").trim()};if(!x.tanggal||x.nominal<=0)return showToast("Isi tanggal dan nominal pengeluaran.");upsert("pengeluaran",x);cancelEdit("keluar",false);refresh();showToast("Pengeluaran tersimpan.");}
+function val(id){return document.getElementById(id).value;}
+function upsert(type,x){const i=db[type].findIndex(a=>a.id===x.id);if(i>=0)db[type][i]=x;else db[type].push(x);saveDB();}
+function editItem(type,id){const x=db[type].find(a=>a.id===id);if(!x)return;showPage(type==="pengeluaran"?"keluar":type);editIds[type==="pengeluaran"?"keluar":type]=id;if(type==="gaji"){setVal("gajiTanggal",x.tanggal);setVal("gajiNominal",x.nominal);setVal("gajiKet",x.ket||"");document.getElementById("gajiSubmit").textContent="Simpan perubahan";}else if(type==="lembur"){setVal("lemburTanggal",x.tanggal);setVal("lemburJam",x.jam);setVal("tarifLembur",x.tarif||44000);setVal("lemburKet",x.ket||"");updateLemburPreview();document.getElementById("lemburSubmit").textContent="Simpan perubahan";}else{setVal("keluarTanggal",x.tanggal);setVal("keluarKategori",x.kategori);setVal("keluarNominal",x.nominal);setVal("keluarKet",x.ket||"");document.getElementById("keluarSubmit").textContent="Simpan perubahan";}window.scrollTo({top:0,behavior:"smooth"});}
+function setVal(id,v){document.getElementById(id).value=v??"";}
+function cancelEdit(type,clear=true){editIds[type]=null;const form=document.getElementById(type+"Form");if(form)form.reset();const submit=document.getElementById(type+"Submit");if(submit)submit.textContent=type==="keluar"?"＋ Simpan pengeluaran":type==="lembur"?"＋ Simpan lembur":"＋ Simpan gaji";if(type==="lembur"){setVal("tarifLembur",44000);updateLemburPreview();}if(clear)showToast("Form dibersihkan.");}
+function deleteItem(type,id){if(!confirm("Hapus transaksi ini?"))return;db[type]=db[type].filter(x=>x.id!==id);saveDB();refresh();renderHistory();showToast("Transaksi dihapus.");}
+function setTarget(){const v=prompt("Masukkan target tabungan dalam rupiah:",db.target||"");if(v===null)return;const n=Number(v);if(!Number.isFinite(n)||n<0)return showToast("Target tidak valid.");db.target=n;saveDB();refresh();showToast("Target tabungan diperbarui.");}
+function toggleDark(){document.body.classList.toggle("dark");localStorage.setItem("salaryDark",document.body.classList.contains("dark")?"on":"off");renderCashChart();renderCategoryChart();}
+function backupData(){const blob=new Blob([JSON.stringify(db,null,2)],{type:"application/json"});downloadBlob(blob,"salary-tracker-backup.json");showToast("Backup siap diunduh.");}
+function downloadBlob(blob,name){const url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);}
+function restoreData(e){const file=e.target.files?.[0];if(!file)return;const r=new FileReader();r.onload=()=>{try{const d=JSON.parse(r.result);if(!Array.isArray(d.gaji)||!Array.isArray(d.lembur)||!Array.isArray(d.pengeluaran))throw Error();if(!confirm("Impor backup akan mengganti data lokal yang sekarang. Lanjutkan?"))return;db={gaji:d.gaji,lembur:d.lembur,pengeluaran:d.pengeluaran,target:Number(d.target)||0};saveDB();refresh();showToast("Backup berhasil dipulihkan.");}catch(err){showToast("File backup tidak valid.");}finally{e.target.value="";}};r.readAsText(file);}
+function resetData(){if(!confirm("Yakin hapus semua data lokal? Unduh backup terlebih dahulu jika diperlukan."))return;db={gaji:[],lembur:[],pengeluaran:[],target:0};saveDB();refresh();showToast("Data lokal sudah direset.");}
+function renderCashChart(){const el=document.getElementById("cashChart");if(!el||typeof Chart==="undefined")return;if(cashChart)cashChart.destroy();const dark=document.body.classList.contains("dark");cashChart=new Chart(el,{type:"bar",data:{labels:["Gaji","Lembur","Pengeluaran"],datasets:[{data:[sum(db.gaji),sum(db.lembur),sum(db.pengeluaran)],backgroundColor:["#4e6cf6","#20c6d7","#ef6680"],borderRadius:9,borderSkipped:false,maxBarThickness:55}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>money(c.raw)}}},scales:{x:{grid:{display:false},ticks:{color:dark?"#9ca8c0":"#7b8498"},border:{display:false}},y:{beginAtZero:true,grid:{color:dark?"#26314a":"#edf0f6"},ticks:{color:dark?"#9ca8c0":"#7b8498",callback:v=>new Intl.NumberFormat("id-ID",{notation:"compact"}).format(v)},border:{display:false}}}}});}
+function buatLaporan(){const a=val("tanggalAwal"),b=val("tanggalAkhir");if(!a||!b||a>b)return showToast("Pilih rentang tanggal yang benar.");const inRange=x=>x.tanggal>=a&&x.tanggal<=b;const g=sum(db.gaji.filter(inRange)),l=sum(db.lembur.filter(inRange)),k=sum(db.pengeluaran.filter(inRange)),s=g+l-k;const cats={};db.pengeluaran.filter(inRange).forEach(x=>cats[x.kategori]=(cats[x.kategori]||0)+Number(x.nominal));document.getElementById("hasilLaporan").innerHTML=`<div class="report-summary"><div class="report-mini"><small>Gaji</small><strong class="positive">${money(g)}</strong></div><div class="report-mini"><small>Lembur</small><strong class="positive">${money(l)}</strong></div><div class="report-mini"><small>Pengeluaran</small><strong class="negative">${money(k)}</strong></div></div><div class="report-mini" style="margin-top:10px"><small>Saldo bersih periode · ${safe(a)} s/d ${safe(b)}</small><strong style="font-size:22px">${money(s)}</strong></div>`;document.getElementById("reportNote").textContent=`Periode ${a} sampai ${b}. Tercatat ${db.gaji.filter(inRange).length+db.lembur.filter(inRange).length+db.pengeluaran.filter(inRange).length} transaksi.`;renderCategoryChart(a,b,cats);showToast("Laporan berhasil dibuat.");}
+function renderCategoryChart(start,end,provided){const el=document.getElementById("categoryChart");if(!el||typeof Chart==="undefined")return;if(categoryChart)categoryChart.destroy();const rows=db.pengeluaran.filter(x=>(!start||x.tanggal>=start)&&(!end||x.tanggal<=end)),cats=provided||rows.reduce((o,x)=>(o[x.kategori]=(o[x.kategori]||0)+Number(x.nominal),o),{});const dark=document.body.classList.contains("dark");categoryChart=new Chart(el,{type:"doughnut",data:{labels:Object.keys(cats),datasets:[{data:Object.values(cats),backgroundColor:["#4e6cf6","#20c6d7","#17b890","#ef6680","#f6b94a","#9b72ed","#ff8d5c"],borderWidth:0,hoverOffset:5}]},options:{responsive:true,maintainAspectRatio:false,cutout:"66%",plugins:{legend:{position:"bottom",labels:{color:dark?"#d8e0f0":"#667085",usePointStyle:true,boxWidth:8,padding:15}},tooltip:{callbacks:{label:c=>`${c.label}: ${money(c.raw)}`}}}}});}
+function exportCSV(){const rows=[["Jenis","Tanggal","Kategori","Keterangan","Nominal"],...db.gaji.map(x=>["Gaji",x.tanggal,"",x.ket||"",x.nominal]),...db.lembur.map(x=>["Lembur",x.tanggal,"",x.ket||"",x.nominal]),...db.pengeluaran.map(x=>["Pengeluaran",x.tanggal,x.kategori||"",x.ket||"",x.nominal])];const csv=rows.map(r=>r.map(v=>`"${String(v??"").replace(/"/g,'""')}"`).join(",")).join("\r\n");downloadBlob(new Blob(["\ufeff"+csv],{type:"text/csv;charset=utf-8;"}),"laporan-salary-tracker.csv");showToast("CSV berhasil diekspor.");}
+document.getElementById("lemburJam").addEventListener("change",updateLemburPreview);document.getElementById("tarifLembur").addEventListener("input",updateLemburPreview);
+if(localStorage.getItem("salaryDark")==="on")document.body.classList.add("dark");
+["gajiTanggal","lemburTanggal","keluarTanggal"].forEach(id=>setVal(id,dateToday()));
+setVal("tanggalAwal",dateToday().slice(0,8)+"01");setVal("tanggalAkhir",dateToday());updateLemburPreview();refresh();
+</script>
 </body>
-</html>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     </html>
