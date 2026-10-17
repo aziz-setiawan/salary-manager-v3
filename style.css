@@ -623,3 +623,319 @@ body.dark .aksi button:last-child {
     scroll-behavior: auto !important;
   }
 }
+
+
+/* ===================================
+   STP DIGITAL FINANCE — UI UPGRADE
+=================================== */
+
+:root {
+  --primary: #5265f5;
+  --accent: #17c5cf;
+  --bg: #f4f6fb;
+  --surface: #ffffff;
+  --text: #182239;
+  --muted: #8993a7;
+  --line: #edf0f7;
+}
+
+body {
+  padding-bottom: calc(94px + env(safe-area-inset-bottom)) !important;
+  background: var(--bg) !important;
+  color: var(--text);
+  font-family: Inter, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", sans-serif;
+}
+
+/* Header premium */
+
+.header {
+  margin: 0 0 22px !important;
+  padding: 30px 20px 27px !important;
+  border-radius: 0 0 27px 27px !important;
+  background: linear-gradient(125deg, #273cc7, #5265f5 60%, #13b9d1) !important;
+  box-shadow: 0 12px 30px rgba(65, 86, 222, .18) !important;
+}
+
+.header h1 {
+  font-size: clamp(23px, 6vw, 30px) !important;
+  font-weight: 800 !important;
+  letter-spacing: -.8px;
+}
+
+.header p {
+  font-size: 14px;
+  opacity: .85;
+}
+
+/* Lebar konten */
+
+.dashboard,
+#content {
+  padding-left: 16px !important;
+  padding-right: 16px !important;
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Kartu dasar */
+
+.card {
+  padding: 18px !important;
+  margin-bottom: 14px !important;
+  border: 1px solid rgba(226, 232, 244, .8) !important;
+  border-radius: 21px !important;
+  background: var(--surface) !important;
+  box-shadow: 0 5px 22px rgba(35, 51, 93, .045) !important;
+}
+
+.card h3 {
+  font-size: 16px !important;
+  font-weight: 750;
+  letter-spacing: -.3px;
+}
+
+.card h4 {
+  font-size: 14px !important;
+  color: #64718a !important;
+}
+
+.card p {
+  font-size: 14px;
+}
+
+/* Kartu saldo */
+
+.card.saldo {
+  min-height: 0 !important;
+  padding: 23px 18px !important;
+  border: 0 !important;
+  border-radius: 24px !important;
+  background: linear-gradient(125deg, #3049d8, #5265f5 58%, #159dce) !important;
+  box-shadow: 0 14px 32px rgba(69, 91, 226, .19) !important;
+}
+
+.card.saldo h3 {
+  margin-bottom: 10px;
+  color: rgba(255,255,255,.8) !important;
+}
+
+.card.saldo h2 {
+  font-size: clamp(31px, 8vw, 40px) !important;
+  color: white !important;
+  letter-spacing: -1.1px;
+}
+
+/* Statistik: lebih padat */
+
+.dashboard > .grid {
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  gap: 11px !important;
+  margin: 0 0 20px !important;
+}
+
+.dashboard > .grid .card {
+  min-height: 0 !important;
+  padding: 15px !important;
+  margin: 0 !important;
+  border-radius: 18px !important;
+  box-shadow: 0 4px 15px rgba(35, 51, 93, .035) !important;
+}
+
+.dashboard > .grid .card h4 {
+  margin-bottom: 9px !important;
+}
+
+.dashboard > .grid .card p {
+  font-size: clamp(15px, 4vw, 19px) !important;
+  color: var(--primary) !important;
+  font-weight: 800 !important;
+  overflow-wrap: anywhere;
+}
+
+/* Konten dan formulir */
+
+#content > .card {
+  animation: stpEnter .22s ease-out both;
+}
+
+@keyframes stpEnter {
+  from {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+input,
+select,
+textarea {
+  min-height: 46px;
+  padding: 12px 13px !important;
+  border: 1px solid #e3e8f2 !important;
+  border-radius: 12px !important;
+  background: #f9faff !important;
+  color: var(--text);
+  font-size: 14px !important;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: var(--primary) !important;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(82, 101, 245, .12) !important;
+}
+
+#content button {
+  border: 0 !important;
+  border-radius: 12px !important;
+  font-weight: 700;
+  box-shadow: 0 4px 12px rgba(82, 101, 245, .12);
+}
+
+.transaksi {
+  border: 1px solid var(--line) !important;
+  border-radius: 15px !important;
+  box-shadow: none !important;
+}
+
+/* Navigasi bawah: tanpa bingkai tombol */
+
+.bottomNav {
+  position: fixed !important;
+  z-index: 9999 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  display: flex !important;
+  align-items: center;
+  justify-content: space-around;
+  gap: 2px !important;
+  padding: 8px 5px calc(8px + env(safe-area-inset-bottom)) !important;
+  background: rgba(255,255,255,.96) !important;
+  border: 0 !important;
+  border-top: 1px solid #e9edf5 !important;
+  border-radius: 19px 19px 0 0 !important;
+  box-shadow: 0 -8px 28px rgba(30, 45, 80, .075) !important;
+  -webkit-backdrop-filter: blur(18px);
+  backdrop-filter: blur(18px);
+}
+
+.bottomNav button {
+  position: relative;
+  display: flex !important;
+  flex: 1 !important;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 3px;
+  width: 0 !important;
+  min-width: 0 !important;
+  min-height: 54px !important;
+  margin: 0 !important;
+  padding: 5px 0 !important;
+  color: #929bb0 !important;
+  background: transparent !important;
+  border: 0 !important;
+  border-radius: 13px !important;
+  outline: none !important;
+  box-shadow: none !important;
+  font-size: 10px !important;
+  font-weight: 650;
+  line-height: 1.4;
+  white-space: nowrap;
+}
+
+.bottomNav button:hover,
+.bottomNav button:focus,
+.bottomNav button:focus-visible {
+  color: var(--primary) !important;
+  background: #f0f2ff !important;
+  border: 0 !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* Dark mode */
+
+body.dark {
+  --bg: #0b1020;
+  --surface: #151d30;
+  --text: #eef2ff;
+  --muted: #9caac2;
+  --line: #273149;
+
+  background: var(--bg) !important;
+  color: var(--text);
+}
+
+body.dark .card,
+body.dark .dashboard > .grid .card {
+  background: var(--surface) !important;
+  border-color: #273149 !important;
+  box-shadow: none !important;
+}
+
+body.dark .card h3,
+body.dark .card h4,
+body.dark .card p {
+  color: var(--text) !important;
+}
+
+body.dark .card.saldo {
+  background: linear-gradient(125deg, #3049d8, #5265f5 58%, #159dce) !important;
+}
+
+body.dark .card.saldo h3,
+body.dark .card.saldo h2 {
+  color: white !important;
+}
+
+body.dark input,
+body.dark select,
+body.dark textarea {
+  background: #101729 !important;
+  border-color: #303b54 !important;
+  color: white !important;
+}
+
+body.dark .bottomNav {
+  background: rgba(15, 22, 38, .97) !important;
+  border-top-color: #273149 !important;
+}
+
+body.dark .bottomNav button {
+  color: #a4b0c7 !important;
+}
+
+body.dark .bottomNav button:hover,
+body.dark .bottomNav button:focus {
+  color: #aebaff !important;
+  background: #242e4c !important;
+}
+
+@media (max-width: 380px) {
+  .dashboard,
+  #content {
+    padding-left: 11px !important;
+    padding-right: 11px !important;
+  }
+
+  .dashboard > .grid {
+    gap: 8px !important;
+  }
+
+  .dashboard > .grid .card {
+    padding: 12px !important;
+  }
+
+  .bottomNav button {
+    font-size: 9px !important;
+  }
+}
